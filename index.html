@@ -1,19 +1,1361 @@
-<!-- index.html -->
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Hello React</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  </head>
-  <body>
-    <div id="content"></div>
-    <img src="/img/profile.jpg" alt="Me" width="200"/>
-    <h1>Hello World!</h1>
-    <script type="text/jsx">
-      // Your code here
-    </script>
-  </body>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<title>Chen Nie</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+		<style>
+			/********************************************
+* 	reset from
+* 	http://meyerweb.com/eric/tools/css/reset/
+*******************************************/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/****************
+*	COMMONS
+****************/
+body, html {
+    font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: 13px;
+    color: #40484f;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.46153846;
+    text-align: left;
+    webkit-text-size-adjust: 100%;
+}
+
+p {
+    display: block;
+    margin-bottom: 1.3em;
+}
+
+a {
+    color: #0095ff;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #0c65a5;
+    text-decoration: underline;
+}
+
+ul {
+    margin-top: 1rem;
+}
+
+li {
+    list-style-type: square;
+    list-style-position: outside;
+    margin-left: 1.3em;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.67rem;
+}
+
+h3 {
+    font-size: 1.27rem;
+}
+
+em {
+    color: #757575;
+}
+
+blockquote {
+    margin-bottom: 1em;
+}
+
+strong {
+    font-weight: 700;
+}
+
+/* main container */
+#resume {
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+/* every section wrapper */
+.section {
+    margin-bottom: 1rem;
+}
+
+section .location {
+    margin-right: .5em;
+    color: #606d76;
+    font-weight: 700;
+}
+
+#contact {
+    margin-top: .5rem;
+}
+
+#profiles .item {
+    padding: 0;
+}
+
+#header > #profiles,
+#header > #contact,
+#skills,
+#languages,
+#interests {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+}
+
+#header > div {
+    line-height: 1.5;
+}
+
+#header > div > div {
+    margin-right: 1.2em;
+}
+
+#header h1.name {
+    font-size: 2.8rem;
+    font-weight: 100;
+    line-height: 100%;
+}
+
+#header h2.label {
+    color: #202931;
+    font-size: 1.47rem;
+    font-weight: 300;
+}
+
+#header .picture {
+    width: 11em;
+    float: right;
+    border-radius: 4px;
+}
+
+.main-summary {
+    background: #f1f8ff;
+    padding: 1.2em 1em;
+    margin-top: 1rem;
+}
+
+.main-summary p {
+    margin: .15em 0 0;
+}
+
+h2.section-title {
+    display: inline-block;
+    background: #fff;
+    padding: 0 1em 0.3em 0;
+    color: #ff6d1f;
+    text-transform: uppercase;
+    font-weight: 600;
+    border: none;
+    font-size: .9rem;
+}
+
+.section > header {
+    position: relative;
+}
+
+.fa {
+    margin-right: 0.25em;
+}
+
+.section > header::after {
+    position: absolute;
+    left: 0;
+    top: .7em;
+    height: 1px;
+    background: #ccc;
+    content: "";
+    width: 100%;
+    z-index: -100;
+    display: block;
+}
+
+.section.main-summary > section {
+    margin: 0;
+}
+
+.section > section > header {
+    font-size: 1.38rem;
+    position: relative;
+    margin-top: .7em;
+}
+
+.section > section > header:first-of-type {
+    margin: 0;
+}
+
+.section > section > header .space-left {
+    position: absolute;
+    left: -1.56rem;
+    top: 5px;
+    color: #aaa;
+    line-height: 1;
+    opacity: 0;
+}
+
+.position,
+.company,
+.organization,
+.institution,
+.date,
+.area,
+.studyType,
+.title,
+.awarder {
+    display: inline-block;
+}
+
+.position,
+.studyType,
+.area,
+.title,
+.language,
+.name {
+    font-weight: 600;
+}
+
+.company::before,
+.institution::before,
+.organization::before,
+.awarder::before {
+    content: "at "
+}
+
+.company,
+.institution,
+.organization,
+.awarder {
+    color: #606d76;
+    font-weight: 400;
+}
+
+.section header .date {
+    font-size: 1rem;
+    display: block;
+    padding: .1em 0;
+    font-weight: 600;
+}
+
+ul.keywords,
+ul.courses {
+    margin-top: .5em;
+}
+
+ul.keywords li,
+ul.courses li {
+    display: inline-block;
+    margin: 2px 2px 2px 0;
+    padding: 4px 5px 5px;
+    font-size: .9rem;
+    line-height: 1;
+    text-transform: lowercase;
+    color: #3e6d8e;
+    background-color: #dfeaf1;
+    border: 0 solid #dfeaf1;
+    white-space: nowrap;
+}
+
+ul.keywords li:hover,
+ul.courses li:hover {
+    background: #dfeaf0;
+}
+
+.item {
+    padding: .5em 0;
+}
+
+.gpa {
+    padding-bottom: .5em;
+}
+
+.fa.social {
+    font-size: 1.1em;
+}
+
+/* Social Media Brand Colors */
+.google-plus {
+    color: #dd4b39;
+}
+
+.tumblr {
+    color: #32506d;
+}
+
+.foursquare {
+    color: #0072b1;
+}
+
+.facebook {
+    color: #3b5998;
+}
+
+.linkedin {
+    color: #007bb6;
+}
+
+.pinterest {
+    color: #cb2027;
+}
+
+.dribbble {
+    color: #ea4c89;
+}
+
+.instagram {
+    color: #517fa4;
+}
+
+.twitter {
+    color: #00aced;
+}
+
+.soundcloud {
+    color: #ff3a00;
+}
+
+.wordpress {
+    color: #21759b;
+}
+
+.youtube {
+    color: #bb0000;
+}
+
+.github {
+    color: #171515;
+}
+
+.stack-overflow {
+    color: #828386;
+    position: relative;
+}
+
+.flickr {
+    color: #ff0084;
+}
+
+.stack-overflow::after {
+    position: absolute;
+    left: 0;
+    content: '\f16c';
+    color: #f68a1f;
+    overflow: hidden;
+    height: 40%;
+}
+
+#languages .item,
+#skills .item,
+#interests .item {
+    width: 15em;
+    padding: 0 .5em .5em 0;
+    border-bottom: none;
+}
+
+#skills .item {
+    width: 16em;
+}
+
+#skills .item .keywords {
+    width: 15em;
+}
+
+/* Skill chart */
+.level {
+    margin-bottom: .5em;
+}
+
+.level .bar {
+    border: 1px solid #ddd;
+    display: block;
+    width: 10em;
+    height: 5px;
+    position: relative;
+}
+
+.level .bar::after {
+    position: absolute;
+    content: " ";
+    top: 0;
+    left: 0;
+    background: black;
+    height: 5px;
+}
+
+.level.beginner .bar::after {
+    background: #EB5F51;
+    width: 2.5em;
+}
+
+.level.intermediate .bar::after {
+    background: #ffdf1f;
+    width: 5em;
+}
+
+.level.advanced .bar::after,
+.level.fluent .bar::after {
+    background: #5CB85C;
+    width: 7.5em;
+}
+
+.level.master .bar::after,
+.level.native.speaker .bar::after {
+    background: #59C596;
+    width: 10em;
+}
+
+#references .item {
+    padding-left: .5em;
+    border-left: 5px solid #ff6d1f;
+}
+
+/******************
+*	HELPER CLASSES
+******************/
+
+.clear::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.display {
+    display: block;
+    opacity: 1 !important;
+}
+
+.margin1 {
+    margin-bottom: .5rem;
+}
+
+/****************
+*		TABLET
+****************/
+@media screen and (min-width: 602px) {
+    #resume {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+
+/****************
+*		LAPTOP
+****************/
+@media screen and (min-width: 1025px) {
+    li {
+        margin-left: 1.5em;
+    }
+
+    #resume {
+        width: 820px;
+        margin: 2rem auto;
+        opacity: 0;
+        -webkit-transition: opacity .5s ease-in-out;
+        transition: opacity .5s ease-in-out;
+    }
+
+    .section > section > header .space-left {
+        opacity: 1;
+        cursor: pointer;
+    }
+
+    .section > section {
+        margin-left: 1.67rem;
+    }
+
+    .company::before,
+    .institution::before,
+    .organization::before,
+    .awarder::before {
+        content: "| ";
+    }
+
+    .header-left {
+        float: left;
+        width: 70%;
+        word-break: normal;
+    }
+
+    .section header .date {
+        float: right;
+        padding: .2em;
+    }
+
+    .display {
+        display: none;
+    }
+
+    .display:not(.none) {
+        display: block;
+    }
+
+}
+
+@media print {
+
+    #resume {
+        margin: 0;
+        padding: 0;
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
+        line-height: 1.3;
+        /*font-family: Arial, Georgia, "Lucida Grande", sans-serif;*/
+    }
+
+    @page {
+        margin: 1cm 1.4cm;
+    }
+
+    .item-count {
+        display: none;
+    }
+
+    .company::before,
+    .institution::before,
+    .organization::before,
+    .awarder::before {
+        content: "at ";
+    }
+
+    .main-summary {
+        padding: 2rem 0;
+    }
+
+    .section {
+        margin: .8rem 0;
+        padding: 0;
+    }
+
+    .section header {
+        padding-bottom: .15rem;
+    }
+
+    .section .location {
+        padding-bottom: .15rem;
+    }
+    .stack-overflow::after {
+        content: "";
+    }
+
+    .fa.social {
+        color: #828386;
+    }
+
+    ul {
+        margin-top: .4em;
+    }
+
+    ul, li {
+        padding: 0;
+    }
+
+    ul.keywords li,
+    ul.courses li {
+        margin: 0;
+        padding: 0;
+        font-size: .8rem;
+        text-transform: lowercase;
+    }
+
+    ul.keywords li::after,
+    ul.courses li::after {
+        padding: 0 0 0 .1rem;
+        content: " |";
+    }
+
+    ul.keywords::before,
+    ul.courses::before {
+        font-size: .8rem;
+        font-weight: 600;
+    }
+
+    ul.keywords::before {
+        content: "Skills acquired: ";
+    }
+
+    #skills .keywords::before {
+        content: '';
+    }
+
+    .section p {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul.courses::before {
+        content: "Major courses: ";
+    }
+
+    ul.keywords li:last-of-type::after,
+    ul.courses li:last-of-type::after {
+        content: "";
+    }
+
+    .level em {
+        font-style: normal;
+        padding: .1em 0;
+    }
+
+    .level .bar {
+        display: none;
+    }
+
+    #profiles .item {
+        padding: 0;
+    }
+
+    .item.display {
+        display: block;
+        opacity: 1 !important;
+    }
+}
+
+		</style>
+	</head>
+
+	<body>
+		<div id="resume">
+				<header id="header" class="clear">
+						<div>
+							<h1 class="name">Chen Nie</h1>
+							<h2 class="label">Engineer, Hacker, Entrepreneur</h2>
+						</div>
+
+						<span class="location">
+								<span class="address">
+									2133 Brittan Ave,
+								</span>
+								<span class="postalCode">
+									CA 94070,
+								</span>
+								<span class="city">
+									San Carlos,
+								</span>
+								<span class="region">
+									California
+								</span>
+								<span class="countryCode">
+									US
+								</span>
+						</span>
+                    
+					<div id="contact">
+						<div class="website">
+              <span class="fa fa-external-link"></span>
+							<a target="_blank" href="http://niechen.me">http://niechen.me</a>
+						</div>
+						<div class="email">
+              <span class="fa fa-envelope-o"></span>
+							<a href="mailto:chen.nie@outlook.com">chen.nie@outlook.com</a>
+						</div>
+						<div class="phone">
+              <span class="fa fa-mobile"></span>
+							(650) 670-7633
+						</div>
+					</div>
+
+					<div id="profiles">
+						<div class="item">
+								<div class="username">
+									<span class="fa fa-linkedin linkedin social"></span>
+									<span class="url">
+										<a href="https://www.linkedin.com/in/chen-nie/">chen-nie</a>
+									</span>
+								</div>
+						</div>
+						<div class="item">
+								<div class="username">
+									<span class="fa fa-github github social"></span>
+									<span class="url">
+										<a href="https://github.com/niechen">niechen</a>
+									</span>
+								</div>
+						</div>
+					</div>
+				</header>
+
+					<section class="section main-summary">
+						<section>
+							<div><p>Chen hails from Shenzhen, the hardware capital of the world. He has earned degree in Applied Math and Financial Engineering from  University of Toronto. Before working at BCG Digital Ventures, he was a founding member and the lead engineer of Liftigniter, a YC startup. And in his previous life, he was a quantitative researcher in the financial service industry. While his work focuses on machine learning and big data, his non-work interests range widely, everything from blockchain to autonomous driving vehicles. He is also a tennis enthusiast and an amature photographer.</p></div>
+						</section>
+					</section>
+
+				<section class="section margin1">
+					<header>
+						<h2 class='section-title'>Skills</h2>
+					</header>
+					<section id="skills">
+						<div class="item">
+							<h3 class="name">
+								Programming
+							</h3>
+							<div class="level master">
+								<em>Master</em>
+								<div class="bar"></div>
+							</div>
+							<ul class="keywords">
+								<li>Scala</li>
+								<li>Python</li>
+								<li>SQL</li>
+								<li>Javascript</li>
+								<li>Go</li>
+								<li>Matlab</li>
+								<li>C</li>
+								<li>C++</li>
+								<li>Bash</li>
+							</ul>
+						</div>
+						<div class="item">
+							<h3 class="name">
+								Data Engineering
+							</h3>
+							<div class="level master">
+								<em>Master</em>
+								<div class="bar"></div>
+							</div>
+							<ul class="keywords">
+								<li>Spark</li>
+								<li>SQL</li>
+								<li>NoSQL</li>
+								<li>Kafka</li>
+								<li>Distributed Storage</li>
+								<li>Stream Processing</li>
+							</ul>
+						</div>
+						<div class="item">
+							<h3 class="name">
+								Machine Learning
+							</h3>
+							<div class="level advanced">
+								<em>Advanced</em>
+								<div class="bar"></div>
+							</div>
+							<ul class="keywords">
+								<li>scikit-learn</li>
+								<li>Spark ML</li>
+								<li>TensorFlow</li>
+							</ul>
+						</div>
+						<div class="item">
+							<h3 class="name">
+								Web Services Backend
+							</h3>
+							<div class="level advanced">
+								<em>Advanced</em>
+								<div class="bar"></div>
+							</div>
+							<ul class="keywords">
+								<li>Scala</li>
+								<li>Akka</li>
+								<li>Spray</li>
+								<li>Microservices</li>
+								<li>CDN</li>
+								<li>Load Balancing</li>
+								<li>Performance Tuning</li>
+							</ul>
+						</div>
+						<div class="item">
+							<h3 class="name">
+								Optimization
+							</h3>
+							<div class="level advanced">
+								<em>Advanced</em>
+								<div class="bar"></div>
+							</div>
+							<ul class="keywords">
+								<li>Linear Programming</li>
+								<li>Quadratic Programming</li>
+								<li>Mixed Integer Programming</li>
+								<li>CPLEX</li>
+								<li>Gurobi</li>
+							</ul>
+						</div>
+						<div class="item">
+							<h3 class="name">
+								Financial Engineering
+							</h3>
+							<div class="level advanced">
+								<em>Advanced</em>
+								<div class="bar"></div>
+							</div>
+							<ul class="keywords">
+								<li>Portfolio Optimization</li>
+								<li>High Frequency Trading</li>
+								<li>Financial Modeling</li>
+							</ul>
+						</div>
+						<div class="item">
+							<h3 class="name">
+								System Infrastructure
+							</h3>
+							<div class="level advanced">
+								<em>Advanced</em>
+								<div class="bar"></div>
+							</div>
+							<ul class="keywords">
+								<li>AWS</li>
+								<li>Azure</li>
+								<li>Docker</li>
+								<li>Ansible</li>
+								<li>Jenkins</li>
+							</ul>
+						</div>
+					</section>
+				</section>
+
+				<section class="section">
+					<header>
+						<h2 class='section-title'>Work Experience <span class="item-count">(6)</span></h2>
+					</header>
+					<section id="work">
+								<header>
+									<span class="space-left">
+											<span class="fa fa-caret-down"></span>
+									</span>
+									<div class="position">
+										Lead Data Engineer
+									</div>
+									<div class="company">
+										BCG Digital Ventures
+									</div>
+									<div class="date">
+										<span class="startDate">
+											January 2016
+										</span>
+										<span class="endDate">
+											- Current
+										</span>
+									</div>
+								</header>
+
+                                <span class="location">
+                                    <span class="fa fa-map-marker"></span>
+                                    <span class="city">
+                                        San Francisco Bay Area,
+                                    </span>
+                                    <span class="countryCode">
+                                        (US)
+                                    </span>
+                                    <span class="region">
+                                      California
+                                    </span>
+                                </span>
+                                <span class="website">
+                                    <a href="https://bcgdv.com">https://bcgdv.com</a>
+                                </span>
+
+
+								<div class="item display" style="opacity:1">
+									<div class="summary">
+										<p><p>BCG Digital Ventures is a global corporate venture firm. We invent, build, scale and invest in startups with the world's most influential companies.</p></p>
+									</div>
+									<ul class="highlights">
+											<li>One of the earlist engineer on Takt incubation team, see details in Takt section.</li>
+											<li>Designed and built a Mixed Integer Programming optimiation model for a healthcare resource planning platform.</li>
+											<li>Designed and built an analytics system based on ELK (Elastic Search, Logstash, Kibana) for private Ethereum Blockchain system.</li>
+											<li>Researched on Blockchain </li>
+									</ul>
+							</div>
+								<header>
+									<span class="space-left">
+											<span class="fa fa-caret-right"></span>
+									</span>
+									<div class="position">
+										Founding Engineer
+									</div>
+									<div class="company">
+										Takt - a BCGDV Incubated Company
+									</div>
+									<div class="date">
+										<span class="startDate">
+											January 2016
+										</span>
+										<span class="endDate">
+											- January 2017
+										</span>
+									</div>
+								</header>
+
+                                <span class="location">
+                                    <span class="fa fa-map-marker"></span>
+                                    <span class="city">
+                                        San Francisco Bay Area,
+                                    </span>
+                                    <span class="countryCode">
+                                        (US)
+                                    </span>
+                                    <span class="region">
+                                      California
+                                    </span>
+                                </span>
+                                <span class="website">
+                                    <a href="https://takt.com">https://takt.com</a>
+                                </span>
+
+
+								<div class="item display none" style="opacity:0">
+									<div class="summary">
+										<p><p>Takt distills complex customer data into uniquely tailored experiences; we orchestrate physical and digital exchanges into one seamless journey. Our business is building lasting, trusted relationships between people and brands—and making it look easy.</p></p>
+									</div>
+									<ul class="highlights">
+											<li>Designed and Built a uniform big data platform on AWS and Spark to support multiple data ETL and machine learning pipelines.</li>
+											<li>Lead a team of engineers to build a high performance recommendation engine to provide real-time personalized recommendations for millions of customers.</li>
+											<li>Analyzed, tuned and scaled various machine learning modles.</li>
+									</ul>
+							</div>
+								<header>
+									<span class="space-left">
+											<span class="fa fa-caret-right"></span>
+									</span>
+									<div class="position">
+										Founding Engineer
+									</div>
+									<div class="company">
+										LiftIgniter
+									</div>
+									<div class="date">
+										<span class="startDate">
+											November 2014
+										</span>
+										<span class="endDate">
+											- December 2015
+										</span>
+									</div>
+								</header>
+
+                                <span class="location">
+                                    <span class="fa fa-map-marker"></span>
+                                    <span class="city">
+                                        San Francisco Bay Area,
+                                    </span>
+                                    <span class="countryCode">
+                                        (US)
+                                    </span>
+                                    <span class="region">
+                                      California
+                                    </span>
+                                </span>
+                                <span class="website">
+                                    <a href="https://www.liftigniter.com">https://www.liftigniter.com</a>
+                                </span>
+
+
+								<div class="item display none" style="opacity:0">
+									<div class="summary">
+										<p><p>LiftIgniter is a machine learning personalization company with the mission to enable better, more engaging user experiences. We make it easy for publishers & e-commerce to harness the same techniques as Google, Amazon, and other consumer web pioneers.</p></p>
+									</div>
+									<ul class="highlights">
+											<li>Designed and implemented a multi-region RESTful web service that serves billions of recommendations per month. Server evaluates each request in real-time against a machine learning model and responses under 100ms. Decoupled different parts of application into micro-services to improve stability and scalability.</li>
+											<li>Designed and implemented a real-time message queue system with multiple consumers performing different tasks including: logging data to S3, updating content inventory, updating real-time item-item and user-item relationship stores.</li>
+											<li>Built JavaScript client and SDK that provides a comprehensive set of functionalities including: user engagement activities tracking, contextual data collection, content scraping, backend server connection, and recommendation widget rendering.</li>
+											<li>Built a analytics dashboard for business owners to monitor performance in real-time and dynamically configure production settings.</li>
+											<li>Maintained machine learning pipeline implemented in Spark. Refactored codebase to improve performance and modularity</li>
+											<li>Owned all infrastructure and DevOps. Optimized infrastructure and reduced machine learning job cost to 1/10 of original. Automated entire build and deployment process. Secured AWS environment by applying the best industry practice.</li>
+									</ul>
+							</div>
+								<header>
+									<span class="space-left">
+											<span class="fa fa-caret-right"></span>
+									</span>
+									<div class="position">
+										Analytics
+									</div>
+									<div class="company">
+										Inflection
+									</div>
+									<div class="date">
+										<span class="startDate">
+											October 2013
+										</span>
+										<span class="endDate">
+											- November 2014
+										</span>
+									</div>
+								</header>
+
+                                <span class="location">
+                                    <span class="fa fa-map-marker"></span>
+                                    <span class="city">
+                                        San Francisco Bay Area,
+                                    </span>
+                                    <span class="countryCode">
+                                        (US)
+                                    </span>
+                                    <span class="region">
+                                      California
+                                    </span>
+                                </span>
+                                <span class="website">
+                                    <a href="https://inflection.com">https://inflection.com</a>
+                                </span>
+
+
+								<div class="item display none" style="opacity:0">
+									<div class="summary">
+										<p><p>Inflection solutions advance trust, safety, and fairness in hiring, the on-demand economy, and public records.</p></p>
+									</div>
+									<ul class="highlights">
+											<li>Built a Machine Learning model to predict customer lifetime value (LTV), the primary metric to guide more than 30M of annual marketing spending. Automated the prediction process and integrated into data warehouse.</li>
+											<li>Built an automated pipeline to collect, store, and analyze large amount of impression-level data from online marketing.</li>
+											<li>Performed key analysis on various aspects of the business including product and marketing.</li>
+									</ul>
+							</div>
+								<header>
+									<span class="space-left">
+											<span class="fa fa-caret-right"></span>
+									</span>
+									<div class="position">
+										Trading Strategist
+									</div>
+									<div class="company">
+										Investment Technology Group
+									</div>
+									<div class="date">
+										<span class="startDate">
+											April 2013
+										</span>
+										<span class="endDate">
+											- October 2013
+										</span>
+									</div>
+								</header>
+
+                                <span class="location">
+                                    <span class="fa fa-map-marker"></span>
+                                    <span class="city">
+                                        Toronto,
+                                    </span>
+                                    <span class="countryCode">
+                                        (CA)
+                                    </span>
+                                    <span class="region">
+                                      Ontario
+                                    </span>
+                                </span>
+                                <span class="website">
+                                    <a href="https://www.itg.com">https://www.itg.com</a>
+                                </span>
+
+
+								<div class="item display none" style="opacity:0">
+									<div class="summary">
+										<p><p>ITG is a global financial technology company that helps leading brokers and asset managers improve returns for investors around the world.</p></p>
+									</div>
+									<ul class="highlights">
+											<li>Designed and implemented a real-time, ultra-low-latency level 2 market information system from scratch, which was substantially faster than exchange provided API and Reuters API.</li>
+											<li>Designed and developed a comprehensive set of tools to facilitate ETF Trading. Functionalities cover Inventory Management, Profit &amp; Loss Calculation, and Trading System Calibration.</li>
+											<li>Reverse Engineered a internal market feed protocol from raw network packets.</li>
+									</ul>
+							</div>
+								<header>
+									<span class="space-left">
+											<span class="fa fa-caret-right"></span>
+									</span>
+									<div class="position">
+										Investment Analyst
+									</div>
+									<div class="company">
+										Manulife Asset Management
+									</div>
+									<div class="date">
+										<span class="startDate">
+											July 2012
+										</span>
+										<span class="endDate">
+											- January 2013
+										</span>
+									</div>
+								</header>
+
+                                <span class="location">
+                                    <span class="fa fa-map-marker"></span>
+                                    <span class="city">
+                                        Toronto,
+                                    </span>
+                                    <span class="countryCode">
+                                        (CA)
+                                    </span>
+                                    <span class="region">
+                                      Ontario
+                                    </span>
+                                </span>
+                                <span class="website">
+                                    <a href="http://www.manulifeam.com/">http://www.manulifeam.com/</a>
+                                </span>
+
+
+								<div class="item display none" style="opacity:0">
+									<div class="summary">
+										<p><p>Manulife Asset Management provides comprehensive asset management solutions for institutional investors and investment funds around the world.</p></p>
+									</div>
+									<ul class="highlights">
+											<li>Built a Portfolio Optimization Framework for Fund of Fund, which first performs a comprehensive analysis on Fund Manager’s historical returns and then optimizes the asset allocation subject to various business constraints.</li>
+											<li>Provided quantitative analysis and optimziation for Strategic Asset Allocation of more than US$200B AUM.</li>
+									</ul>
+							</div>
+					</section>
+				</section>
+
+
+				<section class="section">
+					<header>
+						<h2 class='section-title'>Education <span class="item-count">(1)</span></h2>
+					</header>
+					<section id="education">
+							<header class="clear">
+								<span class="space-left">
+										<span class="fa fa-caret-down"></span>
+								</span>
+								<div class="header-left">
+										<div class="studyType">
+											Bachelor
+										</div>
+										<div class="area">
+											Applied Math and Financial Engineering
+										</div>
+										<div class="institution">
+											University of Toronto
+										</div>
+								</div>
+								<div class="date">
+									<span class="startDate">
+										2007
+									</span>
+									<span class="endDate">
+										- 2012
+									</span>
+								</div>
+							</header>
+
+
+
+								<div class="item display" style="opacity:1">
+							</div>
+					</section>
+				</section>
+
+				<section class="section">
+					<header>
+						<h2 class='section-title'>Awards</h2>
+					</header>
+					<section id="awards">
+						<header class="clear">
+							<span class="space-left">
+									<span class="fa fa-caret-down"></span>
+							</span>
+							<div class="header-left">
+									<div class="title">
+										Engineering Design Award
+									</div>
+									<div class="awarder">
+										University of Toronto Institute for Aerospace Studies
+									</div>
+							</div>
+								<div class="date">
+									2009
+								</div>
+						</header>
+							<div class="item display" style="opacity:1">
+						</div>
+						<header class="clear">
+							<span class="space-left">
+									<span class="fa fa-caret-right"></span>
+							</span>
+							<div class="header-left">
+									<div class="title">
+										Gold Medal
+									</div>
+									<div class="awarder">
+										Canadian Open Mathematics Competition
+									</div>
+							</div>
+								<div class="date">
+									2007
+								</div>
+						</header>
+							<div class="item display none" style="opacity:0">
+						</div>
+						<header class="clear">
+							<span class="space-left">
+									<span class="fa fa-caret-right"></span>
+							</span>
+							<div class="header-left">
+									<div class="title">
+										Gold Standard
+									</div>
+									<div class="awarder">
+										Euclid Mathematics Contest
+									</div>
+							</div>
+								<div class="date">
+									2007
+								</div>
+						</header>
+							<div class="item display none" style="opacity:0">
+						</div>
+					</section>
+				</section>
+
+
+				<section class="section margin1">
+					<header>
+						<h2 class='section-title'>Languages</h2>
+					</header>
+					<section id="languages">
+							<div class="display">
+										<h3 class="language">
+											English
+										</h3>
+								<div class="item">
+										<div class="level fluency native speaker">
+											<em>Native speaker</em>
+											<div class="bar"></div>
+										</div>
+								</div>
+							</div>
+							<div class="display">
+										<h3 class="language">
+											Chinese
+										</h3>
+								<div class="item">
+										<div class="level fluency native speaker">
+											<em>Native speaker</em>
+											<div class="bar"></div>
+										</div>
+								</div>
+							</div>
+					</section>
+				</section>
+
+				<section class="section margin1">
+					<header>
+						<h2 class='section-title' class='section-title'>Interests</h2>
+					</header>
+					<section id="interests">
+							<div class="item">
+									<h3 class="name">
+										Tennis
+									</h3>
+							</div>
+							<div class="item">
+									<h3 class="name">
+										Ping Pong
+									</h3>
+							</div>
+							<div class="item">
+									<h3 class="name">
+										Photography
+									</h3>
+							</div>
+					</section>
+				</section>
+
+		</div>
+		<script>
+			(function(){
+				var elements = document.querySelector("#resume");
+
+				// adding the element to the all container
+				// and using event delegation
+				elements.addEventListener("click", function(e) {
+					var current = e.target;
+					// font awesone arrows
+					var arrowRight = current.classList.contains('fa-caret-right');
+					var arrowDown = current.classList.contains('fa-caret-down');
+
+					if(current && current.nodeName == "SPAN" && (arrowRight || arrowDown)) {
+						var header = e.target.parentNode.parentNode;
+						var item = header.nextSibling;
+
+						// select the .item element from the siblings
+						while (!item || !item.classList || !item.classList.contains('item')) {
+							item = item.nextSibling;
+						}
+
+						// hide or show the .item element
+						item.classList.toggle('none');
+
+						// if the .item is going to be shown then imcrease is opacity
+						// every 20 milliseconds to make a fadeIn effect
+						if (!item.classList.contains('none')) {
+							var id = setInterval(function() {
+								item.style.opacity = parseFloat(item.style.opacity) + 0.09;
+								if (parseFloat(item.style.opacity) >= 1) {
+									clearInterval(id);
+								}
+							}, 20);
+						} else {
+							item.style.opacity = 0;
+						}
+
+						current.classList.toggle('fa-caret-right');
+						current.classList.toggle('fa-caret-down');
+					}
+
+				}, false);
+
+				// Make the #resume visible only when the DOM is fully loaded
+				elements.style.opacity = '1';
+			})();
+		</script>
+	</body>
+
 </html>
